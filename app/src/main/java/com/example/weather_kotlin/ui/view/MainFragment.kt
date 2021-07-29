@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainFragmentBinding
 import com.example.weather_kotlin.viewModel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
@@ -29,8 +30,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return binding.root
     }
 
     override fun onDestroy() {
@@ -41,15 +41,31 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        val observer = Observer<Any>{renderData(it)}
-        viewModel.getData().observe(viewLifecycleOwner, observer)
+//        val observer = Observer<Any> { renderData(it) }
+        viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it as AppState) })
+        viewModel.getWeather()
     }
 
-    private fun renderData(data: Any?) {
-        Toast.makeText(context, "Object liveData", Toast.LENGTH_LONG).show()
+    private fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.Success -> {
+                val weatherData = appState.weatherData
+                binding.loadingLayout.visibility = View.GONE
+                Snackbar.make(binding.mainView, "Success", Snackbar.LENGTH_LONG).show()
+            }
+            is AppState.Loading -> {
+                binding.loadingLayout.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                binding.loadingLayout.visibility = View.GONE
+                Snackbar.make(binding.mainView, "Error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Reload") { viewModel.getWeather() }
+                    .show()
+            }
+        }
+//        Toast.makeText(context, "Object liveData", Toast.LENGTH_LONG).show()
 
     }
-
 
 
 }
