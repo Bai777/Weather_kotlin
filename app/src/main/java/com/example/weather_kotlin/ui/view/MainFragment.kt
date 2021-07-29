@@ -1,4 +1,4 @@
-package com.example.weather_kotlin.ui.main
+package com.example.weather_kotlin.ui.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.weather_kotlin.R
+import com.example.weather_kotlin.viewModel.MainViewModel
 
 class MainFragment : Fragment() {
 
@@ -36,5 +38,7 @@ class MainFragment : Fragment() {
         Toast.makeText(context, "Object liveData", Toast.LENGTH_LONG).show()
 
     }
+
+
 
 }

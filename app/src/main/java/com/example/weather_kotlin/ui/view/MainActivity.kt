@@ -1,8 +1,8 @@
-package com.example.weather_kotlin
+package com.example.weather_kotlin.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.weather_kotlin.ui.main.MainFragment
+import com.example.weather_kotlin.R
 
 class MainActivity : AppCompatActivity() {
 
