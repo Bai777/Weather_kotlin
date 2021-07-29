@@ -1,4 +1,4 @@
-package com.example.weather_kotlin.ui.view
+package com.example.weather_kotlin.viewModel
 
 import com.example.weather_kotlin.model.Weather
 

@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainFragmentBinding
+import com.example.weather_kotlin.model.Weather
+import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -43,7 +43,7 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 //        val observer = Observer<Any> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it as AppState) })
-        viewModel.getWeather()
+        viewModel.getWeatherFromLocalSource()
     }
 
     private fun renderData(appState: AppState) {
@@ -51,7 +51,7 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 val weatherData = appState.weatherData
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.mainView, "Success", Snackbar.LENGTH_LONG).show()
+                setData(weatherData)
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -59,13 +59,24 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
                 Snackbar.make(binding.mainView, "Error", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Reload") { viewModel.getWeather() }
+                    .setAction("Reload") { viewModel.getWeatherFromLocalSource() }
                     .show()
             }
         }
+
 //        Toast.makeText(context, "Object liveData", Toast.LENGTH_LONG).show()
 
     }
 
-
+    private fun setData(weatherData: Weather) {
+        binding.cityName.text = weatherData.city.city
+        binding.cityCoordinates.text = String.format(
+            getString(R.string.city_coordinates),
+            weatherData.city.lat.toString(),
+            weatherData.city.lon.toString()
+        )
+        binding.temperatureValue.text = weatherData.temperature.toString()
+        binding.feelsLikeValue.text = weatherData.feelsLike.toString()
+    }
 }
+
