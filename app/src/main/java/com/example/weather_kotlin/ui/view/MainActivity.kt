@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
-import com.example.weather_kotlin.databinding.MainFragmentBinding
+import com.example.weather_kotlin.ui.view.details.DetailsFragment
+import com.example.weather_kotlin.ui.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
