@@ -41,6 +41,8 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    
+
     companion object {
 
         const val BUNDLE_EXTRA = "weather"
