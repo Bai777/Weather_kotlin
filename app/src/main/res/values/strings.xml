@@ -6,4 +6,6 @@
     <string name="error">Something went wrong</string>
     <string name="reload">
 Restart continues</string>
+    <string name="testURL">https://gb.ru/</string>
+    <string name="button_ok_from_my_browser">ok</string>
 </resources>
