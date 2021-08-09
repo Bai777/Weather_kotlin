@@ -34,7 +34,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
             cityName.text = weatherLocal.city.city //name
             feelsLikeValue.text = "${weatherDTO.fact.fels_like}"
             temperatureValue.text = "${weatherDTO.fact.temp}"
-            condition.text = "${weatherDTO.fact.condition}"
+            condition.text = weatherDTO.fact.condition
         }
     }
 
@@ -46,6 +46,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather1>(BUNDLE_EXTRA)?.apply {
+            weatherLocal = this
             WeatherLoader(this@DetailsFragment, city.lat, city.lon).loadWeather()
         }
 
