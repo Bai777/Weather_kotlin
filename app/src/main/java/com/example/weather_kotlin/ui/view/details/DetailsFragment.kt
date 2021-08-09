@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
@@ -39,7 +40,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
     }
 
     override fun onFailed(throwable: Throwable) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, throwable.localizedMessage, Toast.LENGTH_LONG).show()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
