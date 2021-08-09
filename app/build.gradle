@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id'kotlin-android-extensions'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -17,7 +17,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
+    //чтоб подхватывал ключ из apikey.properties
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def apiKey = properties.getProperty("YANDEX_API_KEY_NAME", "")
+        it.buildConfigField "String", "YANDEX_API_KEY_NAME", apiKey
+    }
+
+    buildFeatures {
         viewBinding true
     }
 

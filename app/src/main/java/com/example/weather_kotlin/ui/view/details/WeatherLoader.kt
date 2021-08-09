@@ -3,6 +3,7 @@ package com.example.weather_kotlin.ui.view.details
 import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
+import com.example.weather_kotlin.BuildConfig
 import com.example.weather_kotlin.model.WeatherDTO
 import com.example.weather_kotlin.model.YANDEX_API_KEY_NAME
 import com.example.weather_kotlin.model.YANDEX_API_KEY_VALUE
@@ -28,7 +29,7 @@ class WeatherLoader(
                 val httpsURLConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
                 httpsURLConnection.connectTimeout = 5000
                 httpsURLConnection.requestMethod = "GET"
-                httpsURLConnection.addRequestProperty(YANDEX_API_KEY_NAME, YANDEX_API_KEY_VALUE)
+                httpsURLConnection.addRequestProperty(YANDEX_API_KEY_NAME, BuildConfig.YANDEX_API_KEY_NAME)
                 val buffer = BufferedReader(InputStreamReader(httpsURLConnection.inputStream))
                 val weatherDTO:WeatherDTO= Gson().fromJson(buffer, WeatherDTO::class.java)
                 handler.post (Runnable{ listener.onLoaded(weatherDTO) })
