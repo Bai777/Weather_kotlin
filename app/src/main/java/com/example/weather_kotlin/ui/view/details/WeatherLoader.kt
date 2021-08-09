@@ -36,7 +36,7 @@ class WeatherLoader(
 
 
 
-        }
+        }.start()
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.weather_kotlin.ui.view.details
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
 import com.example.weather_kotlin.model.WeatherDTO
 import com.example.weather_kotlin.model.Weather as Weather1
 
-class DetailsFragment : Fragment(), WeatherLoaderListener() {
+class DetailsFragment : Fragment(), WeatherLoaderListener {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    var weather
+    lateinit var weatherLocal: Weather1
 
 
     override fun onCreateView(
@@ -27,10 +27,15 @@ class DetailsFragment : Fragment(), WeatherLoaderListener() {
         return binding.getRoot()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onLoaded(weatherDTO: WeatherDTO) {
-       with(binding){
-            cityCoordinates.text="${city.lat}${city.lon}"
-       }
+        with(binding) {
+            cityCoordinates.text = "${weatherLocal.city.lat}${weatherLocal.city.lon}"
+            cityName.text = weatherLocal.city.city //name
+            feelsLikeValue.text = "${weatherDTO.fact.fels_like}"
+            temperatureValue.text = "${weatherDTO.fact.temp}"
+            condition.text = "${weatherDTO.fact.condition}"
+        }
     }
 
     override fun onFailed(throwable: Throwable) {

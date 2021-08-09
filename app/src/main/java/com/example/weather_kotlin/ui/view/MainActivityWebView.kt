@@ -19,9 +19,9 @@ class MainActivityWebView : AppCompatActivity() {
     lateinit var binding: MainActivityWebviewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MainActivityWebviewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.ok.setOnClickListener(clickListener)
+//        binding = MainActivityWebviewBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//        binding.ok.setOnClickListener(clickListener)
     }
 
     val clickListener: View.OnClickListener = object : View.OnClickListener {
