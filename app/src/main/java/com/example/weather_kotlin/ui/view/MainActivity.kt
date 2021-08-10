@@ -1,11 +1,14 @@
 package com.example.weather_kotlin.ui.view
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
+import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
 import com.example.weather_kotlin.exampleService.ThreadsFragment
 import com.example.weather_kotlin.ui.view.details.DetailsFragment.Companion.newInstance
 import com.example.weather_kotlin.ui.view.main.MainFragment
@@ -13,6 +16,8 @@ import com.example.weather_kotlin.ui.view.main.MainFragment.Companion.newInstanc
 import javax.xml.datatype.DatatypeFactory.newInstance
 
 class MainActivity : AppCompatActivity() {
+    //создаём ресивер
+    private val receiver = MainBroadcastReceiver()
 
     lateinit var binding: MainActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +31,19 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commit()
         }
+        //регистрируем его через метод registerReceiver
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
     }
 
+    override fun onDestroy() {
+        //снимаем подписку на события
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_screen_menu,menu)
+        menuInflater.inflate(R.menu.main_screen_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
