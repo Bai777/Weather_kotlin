@@ -27,6 +27,7 @@
         </activity>
 
         <service android:name=".exampleService.MainService" />
+        <service android:name=".ui.view.details.DetailsService" />
         <receiver android:name=".exampleService.MainBroadcastReceiver"
             android:exported="true">
             <intent-filter>
