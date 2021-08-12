@@ -10,10 +10,7 @@ import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
 import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
 import com.example.weather_kotlin.exampleService.ThreadsFragment
-import com.example.weather_kotlin.ui.view.details.DetailsFragment.Companion.newInstance
 import com.example.weather_kotlin.ui.view.main.MainFragment
-import com.example.weather_kotlin.ui.view.main.MainFragment.Companion.newInstance
-import javax.xml.datatype.DatatypeFactory.newInstance
 
 class MainActivity : AppCompatActivity() {
     //создаём ресивер

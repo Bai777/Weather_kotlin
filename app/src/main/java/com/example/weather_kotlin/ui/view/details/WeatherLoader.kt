@@ -6,13 +6,11 @@ import androidx.annotation.RequiresApi
 import com.example.weather_kotlin.BuildConfig
 import com.example.weather_kotlin.model.WeatherDTO
 import com.example.weather_kotlin.model.YANDEX_API_KEY_NAME
-import com.example.weather_kotlin.model.YANDEX_API_KEY_VALUE
 import com.example.weather_kotlin.model.YANDEX_API_URI
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
-import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
 class WeatherLoader(

@@ -2,7 +2,6 @@ package com.example.weather_kotlin.ui.view.details
 
 import android.app.IntentService
 import android.content.Intent
-import android.os.Handler
 import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.weather_kotlin.model.WeatherDTO
