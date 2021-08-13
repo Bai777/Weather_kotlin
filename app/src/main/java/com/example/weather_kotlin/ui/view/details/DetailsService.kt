@@ -33,7 +33,7 @@ class DetailsService(name: String = "DetailService") : IntentService(name) {
         const val LONGITUDE_EXTRA = "Longitude"
         private const val REQUEST_GET = "GET"
         private const val REQUEST_TIMEOUT = 10000
-        private const val REQUEST_API_KEY = "X-Yandex-API-Key"
+        const val REQUEST_API_KEY = "X-Yandex-API-Key"
         val broadcastIntent = Intent(DETAILS_INTENT_FILTER)
 
     }
