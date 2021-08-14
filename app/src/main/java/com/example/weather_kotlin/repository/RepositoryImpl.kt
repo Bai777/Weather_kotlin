@@ -1,4 +1,8 @@
-package com.example.weather_kotlin.model
+package com.example.weather_kotlin.repository
+
+import com.example.weather_kotlin.model.Weather
+import com.example.weather_kotlin.model.getRussianCities
+import com.example.weather_kotlin.model.getWorldCities
 
 class RepositoryImpl : Repository {
 
