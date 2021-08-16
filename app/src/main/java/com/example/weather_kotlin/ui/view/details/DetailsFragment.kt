@@ -1,6 +1,7 @@
 package com.example.weather_kotlin.ui.view.details
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
+import com.example.weather_kotlin.utils.CircleTransformation
 import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.DetailsViewModel
 import com.squareup.picasso.Picasso
@@ -17,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import okhttp3.*
 import com.example.weather_kotlin.model.Weather as Weather1
+
 
 class DetailsFragment : Fragment() {
 
@@ -48,7 +51,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         arguments?.getParcelable<Weather1>(BUNDLE_EXTRA)?.apply {
+        arguments?.getParcelable<Weather1>(BUNDLE_EXTRA)?.apply {
             weatherBundle = this
         }!!
         viewModel.detailsLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
@@ -60,19 +63,34 @@ class DetailsFragment : Fragment() {
         binding.loadingLayout.visibility = View.GONE
 
 
-       weatherBundle?.let {
-           binding.cityName.text = weatherBundle?.city.name
-           binding.cityCoordinates.text = "${weatherBundle.city.lat} ${weatherBundle.city.lon}"
-           binding.temperatureValue.text = weather.temperature.toString()
-           binding.feelsLikeValue.text = weather.feelsLike.toString()
-           binding.condition.text = weather.condition
-       }
+        weatherBundle?.let {
+            binding.cityName.text = weatherBundle?.city.name
+            binding.cityCoordinates.text = "${weatherBundle.city.lat} ${weatherBundle.city.lon}"
+            binding.temperatureValue.text = weather.temperature.toString()
+            binding.feelsLikeValue.text = weather.feelsLike.toString()
+            binding.condition.text = weather.condition
 
-        Picasso
-            .get()
-            .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-            .into(headerIcon)
+            Picasso
+                .get()
+                .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                .transform(CircleTransformation())
+                .rotate(90f)
+                .into(binding.headerIcon)
+            /* Glide.with(binding.headerIcon)
+                 .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                 .into(binding.headerIcon)*/
 
+            /* binding.headerIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")*/
+
+
+        }
+//        weather.icon?.let {
+//            GlideToVectorYou.justLoadImage(
+//                activity,
+//                Uri.parse("https://yastatic.net/weather/i/icons/blueye/color/svg/${it}.svg"),
+//                weatherIcon
+//            )
+//        }
 
     }
 
@@ -100,18 +118,21 @@ class DetailsFragment : Fragment() {
 //                        weatherBundle.city.lat,
 //                        weatherBundle.city.lon
 //                    )
-//                }
-
             }
 
-
         }
+
+
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
+
+
 
 
 
