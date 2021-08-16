@@ -12,6 +12,7 @@ import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
 import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.DetailsViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import okhttp3.*
@@ -66,6 +67,12 @@ class DetailsFragment : Fragment() {
            binding.feelsLikeValue.text = weather.feelsLike.toString()
            binding.condition.text = weather.condition
        }
+
+        Picasso
+            .get()
+            .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+            .into(headerIcon)
+
 
     }
 
