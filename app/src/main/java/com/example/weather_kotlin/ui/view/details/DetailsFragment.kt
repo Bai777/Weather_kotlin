@@ -13,6 +13,7 @@ import com.example.weather_kotlin.databinding.FragmentDetailsBinding
 import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.DetailsViewModel
 import kotlinx.android.synthetic.main.fragment_details.*
+import kotlinx.android.synthetic.main.fragment_details.view.*
 import okhttp3.*
 import com.example.weather_kotlin.model.Weather as Weather1
 
@@ -68,6 +69,7 @@ class DetailsFragment : Fragment() {
 
     }
 
+
     @SuppressLint("SetTextI18n")
     fun renderData(appState: AppState) {
         when (appState) {
@@ -83,7 +85,7 @@ class DetailsFragment : Fragment() {
             is AppState.Error -> {
                 binding.mainView.visibility = View.VISIBLE
                 binding.loadingLayout.visibility = View.GONE
-//                mainView.showSnackBar(
+//               mainView.showSnackBar(
 //                    getString(R.string.error),
 //                    getString(R.string.reload)
 //                ) {

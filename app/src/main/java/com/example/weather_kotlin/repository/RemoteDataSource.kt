@@ -5,7 +5,7 @@ import com.example.weather_kotlin.model.YANDEX_API_URI
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+
 import okhttp3.Response
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -24,7 +24,7 @@ class RemoteDataSource {
 
             )
         )
-        .client(createOkHttpClient(WeatherApiInterceptor()))
+
         .build().create(WeatherAPI::class.java)
 
     inner class WeatherApiInterceptor: Interceptor {
@@ -33,12 +33,7 @@ class RemoteDataSource {
         }
     }
 
-    private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
-        val okHttpClient = OkHttpClient.Builder()
-        okHttpClient.addInterceptor(interceptor)
-        okHttpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-        return okHttpClient.build()
-    }
+
 
     fun getWeatherDetails(
         lat: Double,
