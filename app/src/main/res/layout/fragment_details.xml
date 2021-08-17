@@ -53,8 +53,7 @@
             android:layout_marginTop="@dimen/margin_15_dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cityCoordinates"
-            tools:srcCompat="@drawable/ic_bkn_d" />
+            app:layout_constraintTop_toBottomOf="@+id/cityCoordinates" />
 
         <TextView
             android:id="@+id/condition"

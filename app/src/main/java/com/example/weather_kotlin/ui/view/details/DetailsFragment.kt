@@ -18,16 +18,14 @@ import com.example.weather_kotlin.model.Weather as Weather1
 
 class DetailsFragment : Fragment() {
 
+    private lateinit var weatherBundle: Weather1
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() : FragmentDetailsBinding {
+            return _binding!!
+        }
 
     companion object {
-
-        private lateinit var weatherBundle: Weather1
-        private var _binding: FragmentDetailsBinding? = null
-        private val binding: FragmentDetailsBinding
-            get() : FragmentDetailsBinding {
-                return _binding!!
-            }
-
                 const val BUNDLE_EXTRA = "weather"
 
                 fun newInstance(bundle: Bundle): DetailsFragment {
@@ -41,7 +39,8 @@ class DetailsFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View {
-            return inflater.inflate(R.layout.fragment_details, container, false)
+            _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+            return binding.root
         }
 
         private val viewModel: DetailsViewModel by lazy {
