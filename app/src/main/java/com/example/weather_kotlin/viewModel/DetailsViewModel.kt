@@ -3,7 +3,6 @@ package com.example.weather_kotlin.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weather_kotlin.model.WeatherDTO
-import com.example.weather_kotlin.repository.DetailsRepository
 import com.example.weather_kotlin.repository.DetailsRepositoryImpl
 import com.example.weather_kotlin.repository.RemoteDataSource
 import com.example.weather_kotlin.utils.convertDtoToModel
@@ -14,7 +13,7 @@ import java.io.IOException
 
 class DetailsViewModel(
     val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val detailsRepositoryImpl: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
+    private val detailsRepository: DetailsRepositoryImpl = DetailsRepositoryImpl(RemoteDataSource())
 ) : ViewModel() {
 
     companion object {
@@ -28,7 +27,7 @@ class DetailsViewModel(
 
     fun getWeatherFromRemoteSource(lat: Double, lon: Double) {
         detailsLiveData.value = AppState.Loading
-        detailsRepositoryImpl.getWeatherDetailsFromServer(lat,  lon , callBack)
+        detailsRepository.getWeatherDetailsFromServer(lat,  lon , callBack)
     }
 
     private val callBack = object : Callback<WeatherDTO> {

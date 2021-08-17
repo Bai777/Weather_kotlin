@@ -3,7 +3,7 @@ package com.example.weather_kotlin.utils
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-private fun View.showSnackBar(
+fun View.showSnackBar(
     text: String,
     actionText: String,
     action: (View) -> Unit,
