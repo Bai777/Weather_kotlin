@@ -46,8 +46,8 @@ android {
 
 dependencies {
 
-    //GlideToVectorYou
-    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+//    //GlideToVectorYou
+//    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
 
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.2'
 
