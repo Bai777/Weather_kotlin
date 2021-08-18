@@ -7,7 +7,7 @@ import com.example.weather_kotlin.repository.LocalRepository
 import com.example.weather_kotlin.repository.LocalRepositoryImpl
 
 class HistoryViewModel(
-    private val historyLiveData: MutableLiveData<AppState> = MutableLiveData(),
+    val historyLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel() {
 //метод для получения данных из базы
