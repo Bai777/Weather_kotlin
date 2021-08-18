@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
+import com.example.weather_kotlin.model.City
 import com.example.weather_kotlin.utils.CircleTransformation
 import com.example.weather_kotlin.utils.showSnackBar
 import com.example.weather_kotlin.viewModel.AppState
@@ -64,6 +65,10 @@ class DetailsFragment : Fragment() {
         binding.mainView.visibility = View.VISIBLE
         binding.loadingLayout.visibility = View.GONE
 
+        val city = weatherBundle.city
+        saveCity(city, weather)
+
+
 
         weatherBundle.let {
             binding.cityName.text = weatherBundle.city.name
@@ -97,6 +102,17 @@ class DetailsFragment : Fragment() {
 //        )
 
 
+    }
+
+    private fun saveCity(city: City, weather: Weather1) {
+        viewModel.saveCityToDB(
+            Weather1(
+                city,
+                weather.temperature,
+                weather.feelsLike,
+                weather.condition
+            )
+        )
     }
 
 
