@@ -14,7 +14,7 @@ import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
 
-class HistoryFragment: Fragment() {
+class HistoryFragment: Fragment(), OnClickAdapterItem {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HistoryViewModel by lazy { ViewModelProvider(this).get(HistoryViewModel::class.java) }
@@ -30,6 +30,7 @@ class HistoryFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter.setListener(this)
         historyFragmentRecyclerview.adapter = adapter
         viewModel.historyLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getAllHistory()
@@ -68,6 +69,10 @@ class HistoryFragment: Fragment() {
         @JvmStatic
         fun newInstance() =
             HistoryFragment()
+    }
+
+    override fun onItemClick(name: String, position: Int) {
+        viewModel.deleteByName(name)
     }
 
 

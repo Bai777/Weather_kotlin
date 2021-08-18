@@ -5,8 +5,7 @@ import com.example.weather_kotlin.room.HistoryDAO
 import com.example.weather_kotlin.utils.convertHistoryEntityToWeather
 import com.example.weather_kotlin.utils.convertWeatherToEntity
 
-class LocalRepositoryImpl(private val localDataSource: HistoryDAO)
-    : LocalRepository {
+class LocalRepositoryImpl(private val localDataSource: HistoryDAO) : LocalRepository {
 
 
     override fun getAllHistory(): List<Weather> {
@@ -17,8 +16,8 @@ class LocalRepositoryImpl(private val localDataSource: HistoryDAO)
         localDataSource.insert(convertWeatherToEntity(weather))
     }
 
-//    override fun deleteEntityByName(name:String) {
-//        localDataSource.deleteFromAllCityName(name)
-//    }
+    override fun deleteEntityByName(name: String) {
+        localDataSource.deleteFromAllCityName(name)
+    }
 
 }
