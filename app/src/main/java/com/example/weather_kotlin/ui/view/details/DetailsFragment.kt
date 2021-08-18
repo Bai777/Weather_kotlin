@@ -1,22 +1,21 @@
 package com.example.weather_kotlin.ui.view.details
 
-import android.annotation.SuppressLint
-import android.net.Uri
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentDetailsBinding
 import com.example.weather_kotlin.utils.CircleTransformation
+import com.example.weather_kotlin.utils.showSnackBar
 import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.DetailsViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.*
 import com.example.weather_kotlin.model.Weather as Weather1
-import com.example.weather_kotlin.utils.showSnackBar
 
 
 class DetailsFragment : Fragment() {
@@ -61,7 +60,6 @@ class DetailsFragment : Fragment() {
         viewModel.getWeatherFromRemoteSource(weatherBundle.city.lat, weatherBundle.city.lon)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun setWeather(weather: Weather1) {
         binding.mainView.visibility = View.VISIBLE
         binding.loadingLayout.visibility = View.GONE
@@ -82,26 +80,26 @@ class DetailsFragment : Fragment() {
                 .into(binding.headerIcon)
 
 
-            /* Glide.with(binding.headerIcon)
-                     .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-                     .into(binding.headerIcon)*/
+//             Glide.with(binding.weatherIcon)
+//                     .load("https://yastatic.net/weather/i/icons/blueye/color/svg/${it}.svg")
+//                     .into(binding.weatherIcon)
 
-            /* binding.headerIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")*/
+//            binding.weatherIcon.load("https://yastatic.net/weather/i/icons/blueye/color/svg/${it}.svg")
+
 
 
         }
-//        weather.icon?.let {
-//            GlideToVectorYou.justLoadImage(
-//                activity,
-//                Uri.parse("https://yastatic.net/weather/i/icons/blueye/color/svg/${it}.svg"),
-//                weatherIcon
-//            )
-//        }
+
+//        GlideToVectorYou.justLoadImage(
+//            activity,
+//            Uri.parse("https://yastatic.net/weather/i/icons/blueye/color/svg/${it}.svg"),
+//            weatherIcon
+//        )
+
 
     }
 
 
-    @SuppressLint("SetTextI18n")
     fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
