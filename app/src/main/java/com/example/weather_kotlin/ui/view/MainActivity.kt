@@ -10,6 +10,7 @@ import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
 import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
 import com.example.weather_kotlin.exampleService.ThreadsFragment
+import com.example.weather_kotlin.ui.view.history.HistoryFragment
 import com.example.weather_kotlin.ui.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -55,6 +56,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.menu_history -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, HistoryFragment.newInstance())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

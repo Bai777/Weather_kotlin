@@ -17,4 +17,8 @@ class LocalRepositoryImpl(private val localDataSource: HistoryDAO)
         localDataSource.insert(convertWeatherToEntity(weather))
     }
 
+//    override fun deleteEntityByName(name:String) {
+//        localDataSource.deleteFromAllCityName(name)
+//    }
+
 }

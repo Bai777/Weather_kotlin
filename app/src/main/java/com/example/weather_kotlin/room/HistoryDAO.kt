@@ -10,6 +10,9 @@ interface HistoryDAO {
     @Query("SELECT * FROM HistoryEntity WHERE city LIKE :city")
     fun getDataByWord(city: String): List<HistoryEntity>
 
+    @Query("DELETE FROM HistoryEntity WHERE city=:cityName")
+    fun deleteFromAllCityName(cityName: String)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: HistoryEntity)
 

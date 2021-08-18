@@ -6,19 +6,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather_kotlin.R
+import com.example.weather_kotlin.app.App.Companion.getHistoryDao
 import com.example.weather_kotlin.model.Weather
 import com.example.weather_kotlin.ui.view.history.HistoryAdapter.RecyclerItemViewHolder
+import com.example.weather_kotlin.utils.convertDtoToModel
 import kotlinx.android.synthetic.main.fragment_history_item.view.*
 
 class HistoryAdapter() : RecyclerView.Adapter<RecyclerItemViewHolder>() {
 
     private var data: List<Weather> = arrayListOf()
-
+    private lateinit var listener: OnClickAdapterItem
     fun setData(data: List<Weather>) {
         this.data = data
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -41,8 +42,12 @@ class HistoryAdapter() : RecyclerView.Adapter<RecyclerItemViewHolder>() {
     inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: Weather) {
             if (layoutPosition != RecyclerView.NO_POSITION){
-                itemView.recyclerViewItem.text= String.format("%s %d %s\", data.city.city, data.temperature, data.condition")
+                itemView.recyclerViewItem.text=
+                    String.format("%s %d %s", data.city.name, data.temperature, data.condition)
                 itemView.setOnClickListener{
+                    getHistoryDao().deleteFromAllCityName(data.city.name)
+
+//                    listener.onItemClick(data.city.name,adapterPosition)
                     Toast.makeText(
                         itemView.context,
                         "on click: ${data.city.name}",
