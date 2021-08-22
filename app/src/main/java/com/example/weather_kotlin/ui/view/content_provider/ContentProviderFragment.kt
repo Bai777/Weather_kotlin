@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmenContentProviderBinding
 
-class ContentProviderFragment: Fragment() {
+class ContentProviderFragment : Fragment() {
     private var _binding: FragmenContentProviderBinding? = null
     private val binding get() = _binding!!
 
@@ -58,15 +58,7 @@ class ContentProviderFragment: Fragment() {
                 }
                 //Опционально: если нужно пояснение перед запросом разрешений
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
-                    AlertDialog.Builder(it)
-                        .setTitle("Доступ к контактам")
-                        .setMessage("Объяснение")
-                        .setPositiveButton("Предоставить доступ") { _, _ ->
-                            requestPermission()
-                        }
-                        .setNegativeButton("Не надо") { dialog, _ -> dialog.dismiss() }
-                        .create()
-                        .show()
+                    context?.let { showRatio(it) }
                 }
                 else -> {
                     //Запрашиваем разрешение
@@ -78,6 +70,7 @@ class ContentProviderFragment: Fragment() {
 
     private fun getContacts() {
 
+        val output: StringBuffer = StringBuffer()
         context?.let {
             // Получаем ContentResolver у контекста
             val contentResolver: ContentResolver = it.contentResolver
@@ -91,14 +84,26 @@ class ContentProviderFragment: Fragment() {
             )
 
             cursorWithContacts?.let { cursor ->
-                for (i in 0..cursor.count) {
+//                while (cursor.moveToNext()) {
+                       for (i in 0..cursor.count) {
                     // Переходим на позицию в Cursor
                     if (cursor.moveToPosition(i)) {
                         // Берём из Cursor столбец с именем
                         val name =
                             cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                        addView(it, name)
+                        output.append("\n Имя: $name")
+//                    }
+                    //    }
+//                    for (i in 0..cursor.count) {
+//                        if (cursor.moveToPosition(i)) {
+                            val number =
+                                cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                            output.append("\n Номер: $number")
+//                        }
                     }
+                    output.append("\n")
+                    addView(it, output)
+
                 }
             }
             cursorWithContacts?.close()
@@ -106,7 +111,7 @@ class ContentProviderFragment: Fragment() {
 
     }
 
-    private fun addView(context: Context, textToShow: String) {
+    private fun addView(context: Context, textToShow: StringBuffer) {
         binding.containerForContacts.addView(AppCompatTextView(context).apply {
             text = textToShow
             textSize = resources.getDimension(R.dimen.main_container_text_size)
@@ -125,25 +130,35 @@ class ContentProviderFragment: Fragment() {
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 ) {
-                     getContacts()
+                    getContacts()
                 } else {
                     // Поясните пользователю, что экран останется пустым, потому что доступ к контактам не предоставлен
-                    context?.let {
-                        AlertDialog.Builder(it)
-                            .setTitle("Доступ к контактам")
-                            .setMessage("Экран останется пустым, потому что доступ к контактам не предоставлен")
-                            .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
-                            .create()
-                            .show()
-                    }
+                    context?.let { showRatio(it) }
                 }
                 return
             }
         }
     }
 
+    private fun showRatio(context: Context) {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setTitle("Доступ к контактам")
+                .setMessage("Экран останется пустым, потому что доступ к контактам не предоставлен")
+                .setPositiveButton("Предоставить доступ") { _, _ ->
+                    requestPermission()
+                }
+                .setNegativeButton("Закрыть") { dialog, _ ->
+                    dialog.dismiss()
+                    requireActivity().finish()
+                }
+                .create()
+                .show()
+        }
+    }
 
-        private fun requestPermission() {
+
+    private fun requestPermission() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), Companion.REQUEST_CODE)
     }
 }
