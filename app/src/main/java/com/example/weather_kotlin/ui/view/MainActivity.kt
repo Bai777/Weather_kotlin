@@ -1,5 +1,6 @@
 package com.example.weather_kotlin.ui.view
 
+import android.content.ContentProvider
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
 import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
 import com.example.weather_kotlin.exampleService.ThreadsFragment
+import com.example.weather_kotlin.ui.view.content_provider.ContentProviderFragment
 import com.example.weather_kotlin.ui.view.history.HistoryFragment
 import com.example.weather_kotlin.ui.view.main.MainFragment
 
@@ -60,6 +62,15 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .add(R.id.container, HistoryFragment.newInstance())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+            R.id.menu_content_provider -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, ContentProviderFragment.newInstance())
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }
