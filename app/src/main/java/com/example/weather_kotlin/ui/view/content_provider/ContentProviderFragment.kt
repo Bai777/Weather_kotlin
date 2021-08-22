@@ -38,7 +38,7 @@ class ContentProviderFragment: Fragment() {
         fun newInstance() =
             ContentProviderFragment()
 
-        const val REQUEST_CODE = 42
+        const val REQUEST_CODE = 1
     }
 
     // Проверяем, разрешено ли чтение контактов
@@ -70,7 +70,37 @@ class ContentProviderFragment: Fragment() {
         }
     }
 
-    private fun requestPermission() {
+    // Обратный вызов после получения разрешений от пользователя
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_CODE -> {
+                // Проверяем, дано ли пользователем разрешение по нашему запросу
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    // getContacts()
+                } else {
+                    // Поясните пользователю, что экран останется пустым, потому что доступ к контактам не предоставлен
+                    context?.let {
+                        AlertDialog.Builder(it)
+                            .setTitle("Доступ к контактам")
+                            .setMessage("Экран останется пустым, потому что доступ к контактам не предоставлен")
+                            .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
+                            .create()
+                            .show()
+                    }
+                }
+                return
+            }
+        }
+    }
+
+
+        private fun requestPermission() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), Companion.REQUEST_CODE)
     }
 }
