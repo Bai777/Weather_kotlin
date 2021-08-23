@@ -5,6 +5,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -71,7 +72,7 @@ class ContentProviderFragment : Fragment() {
 
     private fun getContacts() {
 
-        val output: StringBuffer = StringBuffer()
+        val output = StringBuffer()
         context?.let {
             // Получаем ContentResolver у контекста
             val contentResolver: ContentResolver = it.contentResolver
@@ -90,18 +91,21 @@ class ContentProviderFragment : Fragment() {
                     if (cursor.moveToPosition(i)) {
                         // Берём из Cursor столбец с именем
                         val name =
-                            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                            cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                         output.append("\n Имя: $name")
 
                         val phoneNumber =
                             cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        Log.d("log", "Номер: $phoneNumber")
                             output.append("\n Номер: $phoneNumber")
-                    }
-                    output.append("\n")
 
-                    addView(it, output)
+                    }
+
 
                 }
+                output.append("\n")
+                addView(it, output)
+
             }
             cursorWithContacts?.close()
         }
