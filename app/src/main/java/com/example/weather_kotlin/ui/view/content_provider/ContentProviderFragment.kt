@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,7 +85,6 @@ class ContentProviderFragment : Fragment() {
             )
 
             cursorWithContacts?.let { cursor ->
-//                while (cursor.moveToNext()) {
                        for (i in 0..cursor.count) {
                     // Переходим на позицию в Cursor
                     if (cursor.moveToPosition(i)) {
@@ -92,16 +92,13 @@ class ContentProviderFragment : Fragment() {
                         val name =
                             cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                         output.append("\n Имя: $name")
-//                    }
-                    //    }
-//                    for (i in 0..cursor.count) {
-//                        if (cursor.moveToPosition(i)) {
-                            val number =
-                                cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                            output.append("\n Номер: $number")
-//                        }
+
+                        val phoneNumber =
+                            cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                            output.append("\n Номер: $phoneNumber")
                     }
                     output.append("\n")
+
                     addView(it, output)
 
                 }
