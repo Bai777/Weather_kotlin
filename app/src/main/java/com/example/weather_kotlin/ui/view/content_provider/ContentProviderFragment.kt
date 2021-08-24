@@ -3,6 +3,7 @@ package com.example.weather_kotlin.ui.view.content_provider
 import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
@@ -78,7 +79,7 @@ class ContentProviderFragment : Fragment() {
             val contentResolver: ContentResolver = it.contentResolver
             // Отправляем запрос на получение контактов и получаем ответ в виде Cursor
             val cursorWithContacts: Cursor? = contentResolver.query(
-                ContactsContract.Contacts.CONTENT_URI,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -86,22 +87,25 @@ class ContentProviderFragment : Fragment() {
             )
 
             cursorWithContacts?.let { cursor ->
-                       for (i in 0..cursor.count) {
+                for (i in 0..cursor.count) {
                     // Переходим на позицию в Cursor
                     if (cursor.moveToPosition(i)) {
-                        // Берём из Cursor столбец с именем
+                      // Берём из Cursor столбец с именем
+
                         val name =
-                            cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                         output.append("\n Имя: $name")
+
+                        val id =
+                            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+
+                        output.append("\n id: $id")
 
                         val phoneNumber =
                             cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        Log.d("log", "Номер: $phoneNumber")
-                            output.append("\n Номер: $phoneNumber")
+                        output.append("\n Номер: $phoneNumber")
 
                     }
-
-
                 }
                 output.append("\n")
                 addView(it, output)
@@ -117,7 +121,9 @@ class ContentProviderFragment : Fragment() {
             text = textToShow
             textSize = resources.getDimension(R.dimen.main_container_text_size)
         })
+
     }
+
 
     // Обратный вызов после получения разрешений от пользователя
 
@@ -163,4 +169,6 @@ class ContentProviderFragment : Fragment() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), Companion.REQUEST_CODE)
     }
 }
+
+
 
