@@ -13,12 +13,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmenContentProviderBinding
+import java.lang.Thread.sleep
 
 class ContentProviderFragment : Fragment() {
     private var _binding: FragmenContentProviderBinding? = null
@@ -120,8 +122,27 @@ class ContentProviderFragment : Fragment() {
         binding.containerForContacts.addView(AppCompatTextView(context).apply {
             text = textToShow
             textSize = resources.getDimension(R.dimen.main_container_text_size)
+            Thread{
+                sleep(3000)
+                binding.containerForContacts.pick()
+            }.start()
+
         })
 
+    }
+
+    private val requestCode: Int = 23
+    private lateinit var onFailure: (Throwable) -> Unit
+    fun LinearLayout.pick() {
+        try {
+            Intent().apply {
+                data = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+                action = Intent.ACTION_PICK
+                startActivityForResult(this, requestCode)
+            }
+        } catch (e: Exception) {
+            onFailure(e)
+        }
     }
 
 
@@ -169,6 +190,8 @@ class ContentProviderFragment : Fragment() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), Companion.REQUEST_CODE)
     }
 }
+
+
 
 
 
