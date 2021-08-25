@@ -12,6 +12,7 @@ import com.example.weather_kotlin.databinding.MainActivityBinding
 import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
 import com.example.weather_kotlin.exampleService.ThreadsFragment
 import com.example.weather_kotlin.ui.view.content_provider.ContentProviderFragment
+import com.example.weather_kotlin.ui.view.googlemapsfragment.MapsFragment
 import com.example.weather_kotlin.ui.view.history.HistoryFragment
 import com.example.weather_kotlin.ui.view.main.MainFragment
 
@@ -76,7 +77,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
-
+            R.id.menu_google_maps -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, MapsFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

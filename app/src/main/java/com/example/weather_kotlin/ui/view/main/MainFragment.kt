@@ -14,14 +14,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.FragmentMainBinding
 import com.example.weather_kotlin.model.City
 import com.example.weather_kotlin.model.Weather
-import com.example.weather_kotlin.ui.view.content_provider.ContentProviderFragment.Companion.REQUEST_CODE
 import com.example.weather_kotlin.ui.view.details.DetailsFragment
 import com.example.weather_kotlin.viewModel.AppState
 import com.example.weather_kotlin.viewModel.MainViewModel
@@ -41,15 +39,7 @@ class MainFragment : Fragment() {
 
     private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(weather: Weather) {
-            activity?.supportFragmentManager?.apply {
-                openDetailsFragment(weather)
-                beginTransaction().add(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                    putParcelable(DetailsFragment.BUNDLE_EXTRA, weather)
-                }))
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
-
-            }
+            openDetailsFragment(weather)
         }
     })
     private var isDataSetRus: Boolean = true
@@ -68,8 +58,14 @@ class MainFragment : Fragment() {
         binding.mainFragmentFABLocation.setOnClickListener { checkPermission() }
         binding.mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it as AppState) })
-        viewModel.getWeatherFromLocalSourceRus()
+        showListOfTowns()
     }
+
+    override fun onDestroy() {
+        adapter.removeListener()
+        super.onDestroy()
+    }
+
 
     private fun checkPermission() {
 
@@ -116,6 +112,17 @@ class MainFragment : Fragment() {
     ) {
         checkPermissionsResult(requestCode, grantResults)
     }
+
+    private fun showListOfTowns() {
+        activity?.let {
+            if (it.getPreferences(Context.MODE_PRIVATE).getBoolean(IS_WORLD_KEY, false)) {
+                changeWeatherDataSet()
+            } else {
+                viewModel.getWeatherFromLocalSourceRus()
+            }
+        }
+    }
+
 
     private fun checkPermissionsResult(requestCode: Int, grantResults: IntArray) {
         when (requestCode) {
@@ -257,7 +264,7 @@ class MainFragment : Fragment() {
                     })
                 )
                 .addToBackStack("")
-                .commitAllowingStateLoss()
+                .commit()
         }
     }
 
@@ -270,9 +277,9 @@ class MainFragment : Fragment() {
             }
         }
 
-       /* override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
-        override fun onProviderDisabled(provider: String) {}*/
+        override fun onProviderDisabled(provider: String) {}
     }
 
     private fun changeWeatherDataSet() {
@@ -285,6 +292,14 @@ class MainFragment : Fragment() {
         }.also { isDataSetRus = !isDataSetRus }
     }
 
+    private fun saveListOfTowns(isDataSetWorld: Boolean) {
+        activity?.let {
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                putBoolean(IS_WORLD_KEY, isDataSetWorld)
+                apply()
+            }
+        }
+    }
     private fun View.showSnackBar(
         text: String,
         actionText: String,
@@ -317,7 +332,10 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
         private const val MINIMAL_DISTANCE = 100f
-        private const val REFRESH_PERIOD = 60000L
+        private const val REFRESH_PERIOD = 2000L
+        private const val IS_WORLD_KEY = "LIST_OF_TOWNS_KEY"
+        private const val REQUEST_CODE = 12345
+
     }
 
     interface OnItemViewClickListener {
