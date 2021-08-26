@@ -1,6 +1,5 @@
 package com.example.weather_kotlin.ui.view
 
-import android.content.ContentProvider
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     beginTransaction()
                         .add(R.id.container, ThreadsFragment.newInstance())
                         .addToBackStack("")
-                        .commitAllowingStateLoss()
+                        .commit()
                 }
                 true
             }
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     beginTransaction()
                         .add(R.id.container, HistoryFragment.newInstance())
                         .addToBackStack("")
-                        .commitAllowingStateLoss()
+                        .commit()
                 }
                 true
             }
@@ -73,16 +72,16 @@ class MainActivity : AppCompatActivity() {
                     beginTransaction()
                         .add(R.id.container, ContentProviderFragment.newInstance())
                         .addToBackStack("")
-                        .commitAllowingStateLoss()
+                        .commit()
                 }
                 true
             }
             R.id.menu_google_maps -> {
                 supportFragmentManager.apply {
                     beginTransaction()
-                        .add(R.id.container, MapsFragment())
+                        .add(R.id.container, MapsFragment.newInstance())
                         .addToBackStack("")
-                        .commitAllowingStateLoss()
+                        .commit()
                 }
                 true
             }

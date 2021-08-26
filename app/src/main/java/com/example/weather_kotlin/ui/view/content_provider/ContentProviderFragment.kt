@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -144,6 +145,17 @@ class ContentProviderFragment : Fragment() {
             onFailure(e)
         }
     }
+
+//    private val numberIsNotSpecified = "default"
+//    private fun phoneCall(number: String) {
+//        if (number != numberIsNotSpecified) {
+//            val callIntent = Intent(Intent.ACTION_CALL)
+//            callIntent.data = Uri.parse("tel:$number")
+//            startActivity(callIntent)
+//        } else {
+//            Toast.makeText(context, "Number is not specified", Toast.LENGTH_LONG).show()
+//        }
+//    }
 
 
     // Обратный вызов после получения разрешений от пользователя

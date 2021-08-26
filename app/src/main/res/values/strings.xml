@@ -42,5 +42,9 @@ Restart continues</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="google_maps">google_maps</string>
 
+    <string name="default_address">Москва</string>
+    <string name="button_search_map">Search</string>
+    <string name="marker_start">Start</string>
+
 
 </resources>
