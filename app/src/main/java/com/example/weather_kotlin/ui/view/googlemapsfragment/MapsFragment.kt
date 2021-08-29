@@ -94,7 +94,7 @@ class MapsFragment : Fragment() {
             MarkerOptions()
                 .position(location)
                 .title(searchText)
-                .icon(BitmapDescriptorFactory.fromResource(resourceId))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin))
         )
     }
 
