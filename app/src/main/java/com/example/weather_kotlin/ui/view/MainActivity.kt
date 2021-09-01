@@ -5,7 +5,9 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weather_kotlin.BuildConfig
 import com.example.weather_kotlin.R
 import com.example.weather_kotlin.databinding.MainActivityBinding
 import com.example.weather_kotlin.exampleService.MainBroadcastReceiver
@@ -14,6 +16,7 @@ import com.example.weather_kotlin.ui.view.content_provider.ContentProviderFragme
 import com.example.weather_kotlin.ui.view.googlemapsfragment.MapsFragment
 import com.example.weather_kotlin.ui.view.history.HistoryFragment
 import com.example.weather_kotlin.ui.view.main.MainFragment
+import kotlinx.android.synthetic.main.fragment_threads.view.*
 
 class MainActivity : AppCompatActivity() {
     //создаём ресивер
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+     //Toast.makeText(this, BuildConfig.TYPE, Toast.LENGTH_LONG).show()
 
 
         if (savedInstanceState == null) {
