@@ -7,6 +7,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Weather_kotlin/app/src/main/res/layout/fragment_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Weather_kotlin/app/src/main/res/layout/fragment_threads.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Weather_kotlin/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Weather_kotlin/app/src/freeConfig/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Weather_kotlin/app/src/freeConfig/res/menu/main_screen_menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/drawable/ic_map_marker.xml" value="0.14074074074074075" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/layout/fragmen_content_provider.xml" value="0.11510416666666666" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/layout/fragment_details.xml" value="0.1" />
@@ -16,7 +18,10 @@
         <entry key="..\:/Weather_kotlin/app/src/main/res/layout/fragment_main_maps.xml" value="0.13020833333333334" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/layout/fragment_maps.xml" value="0.1" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/layout/loading_layout.xml" value="0.11510416666666666" />
+        <entry key="..\:/Weather_kotlin/app/src/main/res/layout/main_activity.xml" value="0.1" />
         <entry key="..\:/Weather_kotlin/app/src/main/res/menu/main_screen_menu.xml" value="0.22" />
+        <entry key="..\:/Weather_kotlin/app/src/paidConfig/res/layout/activity_main.xml" value="0.6" />
+        <entry key="..\:/Weather_kotlin/app/src/paidConfig/res/menu/main_screen_menu.xml" value="0.13020833333333334" />
       </map>
     </option>
   </component>

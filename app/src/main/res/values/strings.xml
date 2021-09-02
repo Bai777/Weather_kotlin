@@ -45,6 +45,7 @@ Restart continues</string>
     <string name="default_address">Москва</string>
     <string name="button_search_map">Search</string>
     <string name="marker_start">Start</string>
+    <string name="hello">hello</string>
 
 
 </resources>

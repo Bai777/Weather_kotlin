@@ -9,6 +9,20 @@ apply plugin: "kotlin-kapt"
 
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('H:\\Weather_kotlin\\apikeys.jks')
+            storePassword 'Agta_2007'
+            keyAlias 'Apikey'
+            keyPassword 'Agta_2007'
+        }
+        release {
+            storeFile file('H:\\Weather_kotlin\\apikeys.jks')
+            storePassword 'Agta_2007'
+            keyAlias 'Apikey'
+            keyPassword 'Agta_2007'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -36,9 +50,11 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "TYPE", '"RELASE"'
+
         }
 
         debug {
@@ -65,6 +81,10 @@ android {
         freeConfig {
             dimension 'version'
             versionNameSuffix '.free'
+        }
+        paidConfig{
+            dimension 'version'
+            versionNameSuffix '.paid'
         }
     }
 }
